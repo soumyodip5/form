@@ -41,7 +41,7 @@ class FormController extends Controller
                 'message' => ['required', 'string', 'max:30', 'min:10'],
                 'number' => ['required', 'integer'],
                 'telephone' => ['required', 'integer'],
-                'checkbox' => ['required', 'json'],
+                'checkbox' => ['required', 'string'],
                 'select' => ['required', 'string'],
                 'radio' => ['required', 'string'],
                 'file' => ['required', 'string'],
