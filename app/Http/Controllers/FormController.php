@@ -44,7 +44,7 @@ class FormController extends Controller
                 'checkbox' => ['required', 'string'],
                 'select' => ['required', 'string'],
                 'radio' => ['required', 'string'],
-                'file' => ['required', 'string'],
+                'file' => ['required'],
             ]);
             if ($validation->fails()) {
                 return response()->json([

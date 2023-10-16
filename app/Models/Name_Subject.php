@@ -17,4 +17,8 @@ class Name_Subject extends Model
     public function optional_submit(){
         return $this->hasMany(Form_Submit::class);
     }
+
+    public function form(){
+        return $this->hasMany(form::class);
+    }
 }

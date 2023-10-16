@@ -9,5 +9,9 @@ class Form extends Model
 {
     use HasFactory;
     protected $fillable = ['name','types','middle_name','last_name','email','subject','message','number','telephone','checkbox','select','radio','file'];
+
+    public function subject(){
+        return $this->belongsTo(Name_Subject::class, 'types');
+    }
 }
 
