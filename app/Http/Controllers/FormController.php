@@ -32,16 +32,16 @@ class FormController extends Controller
         
         try {
             $validation = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:20', 'min:6'],
-                'types' => ['required', 'string', 'max:20', 'min:10'],
-                'middle_name' => ['string', 'max:20', 'min:10'],
-                'last_name' => ['string', 'max:20', 'min:10'],
-                'email' => ['required', 'string', 'max:20', 'min:10'],
-                'subject' => ['required', 'string', 'max:30', 'min:10'],
-                'message' => ['required', 'string', 'max:30', 'min:10'],
+                'name' => ['required', 'string', 'max:20', 'min:1'],
+                'types' => ['required', 'string'],
+                'middle_name' => ['string', 'max:20', 'min:1'],
+                'last_name' => ['string', 'max:20', 'min:1'],
+                'email' => ['required', 'string'],
+                'subject' => ['required', 'string', 'max:30', 'min:1'],
+                'message' => ['required', 'string', 'max:30', 'min:1'],
                 'number' => ['required', 'integer'],
                 'telephone' => ['required', 'integer'],
-                'checkbox' => ['required', 'string'],
+                'checkbox' => ['required', 'json'],
                 'select' => ['required', 'string'],
                 'radio' => ['required', 'string'],
                 'file' => ['required'],
@@ -88,24 +88,48 @@ class FormController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        try {
+
+            $forms = Form::findOrFail($id);
+            if ($forms) {
+                return response()->json(
+                    [
+                        'success' => true,
+                        'forms' => $forms
+                    ]
+                );
+            }
+        } catch (Exception $e) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'forms' => $e->getMessage()
+                ]
+            );
+        }
+    }
+
     public function update(Request $request, $id)
     {
         try {
             $forms = Form::findOrFail($id);
             $validation = Validator::make($request->all(), [
-                'name' => ['required', 'string', 'max:20', 'min:6'],
-                'types' => ['required', 'string', 'max:20', 'min:10'],
-                'middle_name' => ['string', 'max:20', 'min:10'],
-                'last_name' => ['string', 'max:20', 'min:10'],
-                'email' => ['required', 'string', 'max:20', 'min:10'],
-                'subject' => ['required', 'string', 'max:30', 'min:10'],
-                'message' => ['required', 'string', 'max:30', 'min:10'],
+                'name' => ['required', 'string', 'max:20', 'min:1'],
+                'types' => ['required', 'string'],
+                'middle_name' => ['string', 'max:20', 'min:1'],
+                'last_name' => ['string', 'max:20', 'min:1'],
+                'email' => ['required', 'string', 'max:20', 'min:1'],
+                'subject' => ['required', 'string', 'max:30', 'min:1'],
+                'message' => ['required', 'string', 'max:30', 'min:1'],
                 'number' => ['required', 'integer'],
                 'telephone' => ['required', 'integer'],
-                'checkbox' => ['required', 'string'],
+                
+                'checkbox' => ['required', 'json'],
                 'select' => ['required', 'string'],
                 'radio' => ['required', 'string'],
-                'file' => ['required', 'string'],
+                'file' => ['required'],
             ]);
             if ($validation->fails()) {
                 return response()->json([
